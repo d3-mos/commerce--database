@@ -6,7 +6,7 @@ CREATE TABLE commerce_list(
   address    VARCHAR(300),
   lat        DOUBLE,
   lng        DOUBLE,
-  pastId     VARCHAR(50),
+  past_id     VARCHAR(50),
   PRIMARY KEY(id),
   UNIQUE(species, pastId)
 ) Engine=InnoDB DEFAULT CHARSET='utf8';
