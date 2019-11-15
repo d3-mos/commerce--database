@@ -12,16 +12,15 @@
 -- Link:     https://dev.maxmind.com/geoip/geoip2/geolite2/
 -- 
 CREATE TABLE CAT_NETWORK_GEOLOCATION (
-  ip_from     INT(10) UNSIGNED,
-  ip_to       INT(10) UNSIGNED,
-  no_nodes    INT(10) UNSIGNED,
-  latitude    DOUBLE,
-  longitude   DOUBLE,
-  zip_code    VARCHAR(30),
-  datasource  VARCHAR(30),
-  INDEX idx_ip_from (ip_from),
-  INDEX idx_ip_to (ip_to),
-  INDEX idx_ip_network (ip_from, ip_to),
-  INDEX idx_no_nodes(no_nodes),
-  INDEX idx_datasource( datasource )
+  IP_FROM     INT(10) UNSIGNED,
+  IP_TO       INT(10) UNSIGNED,
+  NO_NODES    INT(10) UNSIGNED,
+  LATITUDE    DOUBLE,
+  LONGITUDE   DOUBLE,
+  ZIP_CODE    VARCHAR(30),
+  DATASOURCE  VARCHAR(30),
+  INDEX IDX_IP_FROM (ip_from),
+  INDEX IDX_IP_TO (ip_to),
+  INDEX IDX_NETWORK_SEGMENT (ip_from, ip_to),
+  INDEX IDX_NO_NODES (no_nodes)
 ) Engine=InnoDB charset=latin1;
