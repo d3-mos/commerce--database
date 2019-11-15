@@ -11,7 +11,7 @@
 -- Link:     https://lite.ip2location.com/database/ip-country-region-city-latitude-longitude-zipcode
 -- Link:     https://dev.maxmind.com/geoip/geoip2/geolite2/
 -- 
-CREATE TABLE CAT_NETWORK_LOCATION (
+CREATE TABLE CAT_NETWORK_GEOLOCATION (
   ip_from     INT(10) UNSIGNED,
   ip_to       INT(10) UNSIGNED,
   no_nodes    INT(10) UNSIGNED,
