@@ -11,16 +11,17 @@
 -- Link:     https://lite.ip2location.com/database/ip-country-region-city-latitude-longitude-zipcode
 -- Link:     https://dev.maxmind.com/geoip/geoip2/geolite2/
 -- 
+
 CREATE TABLE CAT_NETWORK_GEOLOCATION (
-  IP_FROM     INT(10) UNSIGNED,
-  IP_TO       INT(10) UNSIGNED,
-  NO_NODES    INT(10) UNSIGNED,
-  LATITUDE    DOUBLE,
-  LONGITUDE   DOUBLE,
-  ZIP_CODE    VARCHAR(30),
-  DATASOURCE  VARCHAR(30),
-  INDEX IDX_IP_FROM (ip_from),
-  INDEX IDX_IP_TO (ip_to),
-  INDEX IDX_NETWORK_SEGMENT (ip_from, ip_to),
-  INDEX IDX_NO_NODES (no_nodes)
+  `IP_TO`      bigint(20) NOT NULL,
+  `IP_FROM`    bigint(20) NOT NULL,
+  `DATASOURCE` varchar(255) NOT NULL,
+  `LATITUDE`   double DEFAULT NULL,
+  `LONGITUDE`  double DEFAULT NULL,
+  `MODIFY_TS`  datetime DEFAULT NULL,
+  `NO_NODES`   bigint(20) DEFAULT NULL,
+  `ZIP_CODE`   varchar(255) DEFAULT NULL,
+  INDEX `IDX_IP_FROM` (`IP_FROM`),
+  INDEX `IDX_IP_TO` (`IP_TO`),
+  INDEX `IDX_NETWORK_SEGMENT` (`IP_FROM`, `IP_TO`)
 ) Engine=InnoDB charset=latin1;
