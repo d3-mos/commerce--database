@@ -9,14 +9,14 @@ USE etl_source_simulation;
 --------
 CREATE TABLE cat_emisores (
   consecutivo      int(11) NOT NULL,
-  nom_sucursal     varchar(50) DEFAULT NULL,
-  estado           varchar(30) DEFAULT NULL,
-  ciudad_municipio varchar(50) DEFAULT NULL,
+  nom_sucursal     varchar(50)  DEFAULT NULL,
+  estado           varchar(30)  DEFAULT NULL,
+  ciudad_municipio varchar(50)  DEFAULT NULL,
   domicilio        varchar(170) DEFAULT NULL,
   PRIMARY KEY (consecutivo)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table cat_emisores add insert_ts DATETIME DEFAULT CURRENT_TIMESTAMP;
+alter table cat_emisores add column last_change_ts DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 --------
 CREATE TABLE cat_oxxo (
@@ -47,7 +47,7 @@ CREATE TABLE cat_oxxo (
   PRIMARY KEY (concatenado)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table cat_oxxo add insert_ts DATETIME DEFAULT CURRENT_TIMESTAMP;
+alter table cat_oxxo add column last_change_ts DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 --------
 CREATE TABLE cat_sanborns (
@@ -64,7 +64,7 @@ CREATE TABLE cat_sanborns (
   PRIMARY KEY (no_sucursal)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table cat_sanborns add insert_ts DATETIME DEFAULT CURRENT_TIMESTAMP;
+alter table cat_sanborns add column last_change_ts DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 --------
 CREATE TABLE cat_sears (
@@ -76,7 +76,7 @@ CREATE TABLE cat_sears (
   PRIMARY KEY (no_tienda)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table cat_sears add insert_ts DATETIME DEFAULT CURRENT_TIMESTAMP;
+alter table cat_sears add column last_change_ts DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 --------
 CREATE TABLE cat_telcel (
@@ -97,23 +97,29 @@ CREATE TABLE cat_telcel (
   PRIMARY KEY (id_corresponsal, municipio)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-alter table cat_telcel add insert_ts DATETIME DEFAULT CURRENT_TIMESTAMP;
+alter table cat_telcel add column last_change_ts DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 INSERT INTO cat_emisores(consecutivo, nom_sucursal, estado, ciudad_municipio, domicilio)
 VALUES
-  ('1', 'SUC. D AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Av. De Las Americas No. 110 P.B Col. Fracc. Las Americas C.P 20230 Aguascalientes, Aguascalientes'),
-  ('2', 'SUC. C AGUASCALIENTES PLAZA GALERIAS', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Av. Independencia No. 1703 Centro Comercial Galerias Local 73 - B  Col. Trojes De Alonso C.P. 20116 Aguascalientes, Aguascalientes.'),
   ('3', 'SUC. B AGUASCALIENTES ARENAL', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Av. Universidad No. 2229 - A , Col. San Jose El Arenal, Aguascalientes , Cp. 20130'),
   ('4', 'SUC. A AGUASCALIENTES ALTARIA', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Blvd. A Zacatecas Norte 849 Local 1010 Col. Trojes De Alonso C.P. 20116 Aguascalientes. Ags.'),
   ('5', 'SUC. A AGUASCALIENTES FRANCIA', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Fco. I. Madero No. 111 Col. Centro C.P. 20000 Aguascalientes, Ags.');
 
+INSERT INTO cat_emisores(consecutivo, nom_sucursal, estado, ciudad_municipio, domicilio, last_change_ts)
+VALUES
+  ('1', 'SUC. D AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Av. De Las Americas No. 110 P.B Col. Fracc. Las Americas C.P 20230 Aguascalientes, Aguascalientes', '2019-11-17 00:00:00'),
+  ('2', 'SUC. C AGUASCALIENTES PLAZA GALERIAS', 'AGUASCALIENTES', 'AGUASCALIENTES', 'Av. Independencia No. 1703 Centro Comercial Galerias Local 73 - B  Col. Trojes De Alonso C.P. 20116 Aguascalientes, Aguascalientes.', '2019-11-17 00:00:00');
+
 INSERT INTO cat_oxxo(concatenado, cr_plaza, nombre_plaza, cr_tienda, nombretienda, empresa_pertenece, num_contrato, calle, numero, entre_calles, codigo, franja_front, colonia, minicipio_dele, ciudad, estado, codigo_area, telefono, op_con_venta, latitud, longitud, dolares, segmento, fecha_apertura)
 VALUES
-  ('10AGC500NG', '10AGC', 'Aguascalientes', '500NG', 'Dorado AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4156598', 'AV. LAS AMERICAS', 'LOCAL 33 C', 'DENTRO DEL CENTRO COMERCIAL EL DORADO', '20235', 'N', 'EL DORADO', 'AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '21.86363553', '-102.30414901', 'NO', 'RECESO', '2018-09-16'),
-  ('10AGC500TB', '10AGC', 'Aguascalientes', '500TB', 'Gas Villasuncion AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4100373', 'AV. MAHATMA GANDHI', 'S/N', 'ABRAHAM GONZALEZ Y SIGLO XXI SUR', '20280', 'N', 'PRADOS DE VILLASUNCION', 'AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '21.84812644', '-102.29349782', 'NO', 'RECESO', '2016-10-13'),
   ('10AGC500TM', '10AGC', 'Aguascalientes', '500TM', 'Puerta Norte AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4141680', 'CARRETERA 45 NORTE', 'S/N', 'AGS-COSIO', '20460', 'N', 'COSIO', 'COSIO', 'COSIO', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '22.37220000', '-102.29860000', 'NO', 'RECESO', '2018-04-07'),
   ('10AGC501X9', '10AGC', 'Aguascalientes', '501X9', 'Geronimo de la Cueva AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4100374', 'Geronimo de la Cueva', '1', 'Esquina Jose de Jesus Gonzalez', '20126', 'N', 'VILLA DE NUESTRA SEÑORA DE LA ASUNCION', 'AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '21.93145191', '-102.26064275', 'NO', 'HOGAR', '2016-10-20'),
   ('10AGC5021I', '10AGC', 'Aguascalientes', '5021I', 'Artillero Mier AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4106229', 'ARTILLERO MIER', 'S/N', 'ESQ. HEROE INMORTAL', '20140', 'N', 'MORELOS', 'AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '21.85403308', '-102.26921861', 'NO', 'BASE', '2016-11-23');
+
+INSERT INTO cat_oxxo(concatenado, cr_plaza, nombre_plaza, cr_tienda, nombretienda, empresa_pertenece, num_contrato, calle, numero, entre_calles, codigo, franja_front, colonia, minicipio_dele, ciudad, estado, codigo_area, telefono, op_con_venta, latitud, longitud, dolares, segmento, fecha_apertura, last_change_ts)
+VALUES
+  ('10AGC500NG', '10AGC', 'Aguascalientes', '500NG', 'Dorado AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4156598', 'AV. LAS AMERICAS', 'LOCAL 33 C', 'DENTRO DEL CENTRO COMERCIAL EL DORADO', '20235', 'N', 'EL DORADO', 'AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '21.86363553', '-102.30414901', 'NO', 'RECESO', '2018-09-16', '2019-11-17 00:00:00'),
+  ('10AGC500TB', '10AGC', 'Aguascalientes', '500TB', 'Gas Villasuncion AGU', 'CADENA COMERCIAL OXXO SA. DE CV.', '4100373', 'AV. MAHATMA GANDHI', 'S/N', 'ABRAHAM GONZALEZ Y SIGLO XXI SUR', '20280', 'N', 'PRADOS DE VILLASUNCION', 'AGUASCALIENTES', 'AGUASCALIENTES', 'AGUASCALIENTES', '0', '0', 'SI OPERATIVA', '21.84812644', '-102.29349782', 'NO', 'RECESO', '2016-10-13', '2019-11-17 00:00:00');
 
 INSERT INTO cat_sanborns(no_sucursal, nom_sucursal, calle_y_numero, colonia, delegacion, localidad_municipio, estado, cp, responsable, telefono)
 VALUES
