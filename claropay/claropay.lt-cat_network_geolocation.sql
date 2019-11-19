@@ -26,3 +26,12 @@ CREATE TABLE CAT_NETWORK_GEOLOCATION (
   INDEX `IDX_NETWORK_SEGMENT` (`IP_FROM`, `IP_TO`),
   INDEX `IDX_DATASOURCE` (`DATASOURCE`)
 ) Engine=MyISAM charset=latin1;
+
+-- 187.189.146.48 the best option geolite
+# select * from ip_cities where ip_from<=3149763120 and ip_to>=3149763120 order by datasource ASC, no_nodes;
+
+-- 189.213.153.136 the best option geolite
+# select * from ip_cities where 3184892296 between ip_from and ip_to order by datasource ASC, no_nodes;
+
+-- 201.168.165.2 the best option geolite
+# select * from ip_cities where ip_from<=3383272706 and ip_to>=3383272706 order by datasource ASC, no_nodes;
